@@ -25,13 +25,16 @@ alcohol = st.selectbox("Consumo de alcohol", ["No", "Sí"])
 alcohol = 1 if alcohol == "Sí" else 0
 drogas_c = st.selectbox("Consumo de otras drogas", ["No", "Sí"])
 drogas_c = 1 if drogas_c == "Sí" else 0
-via = st.selectbox("Vía de transmisión", {
-    0: "HSH",
-    1: "Drogadicción",
-    2: "Heterosexual",
-    3: "Otros/desconocido"
-})
-via = list({"HSH": 0, "Drogadicción": 1, "Heterosexual": 2, "Otros/desconocido": 3}.values())[list({"HSH": 0, "Drogadicción": 1, "Heterosexual": 2, "Otros/desconocido": 3}.keys()).index(via)]
+via_opciones = {
+    "HSH": 0,
+    "Drogadicción": 1,
+    "Heterosexual": 2,
+    "Otros/desconocido": 3
+}
+
+via_texto = st.selectbox("Vía de transmisión", list(via_opciones.keys()))
+via = via_opciones[via_texto]
+
 estadio = st.selectbox("Estadio CDC", [1, 2, 3])
 sida = st.selectbox("Diagnóstico de SIDA", ["No", "Sí"])
 sida = 1 if sida == "Sí" else 0
