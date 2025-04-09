@@ -75,6 +75,29 @@ if st.button("Predecir"):
 
     pred = model.predict(entrada)[0]
     proba = model.predict_proba(entrada)[0][1]
+    porcentaje = proba * 100
 
-    st.success(f"Riesgo estimado: {'Aterosclerosis Subclínica' if pred == 1 else 'No Aterosclerosis'}")
-    st.info(f"Probabilidad estimada: {proba:.2f}")
+    st.success(f"Resultado estimado: {'Aterosclerosis Subclínica' if pred == 1 else 'No Aterosclerosis'}")
+    st.info(f"Probabilidad estimada de ASC: {porcentaje:.1f}%")
+
+    # Visualización del riesgo
+    st.markdown("### Visualización del riesgo estimado")
+
+    fig, ax = plt.subplots(figsize=(6, 1.2))
+
+    # Colores por zonas
+    ax.axhspan(0, 1, xmin=0, xmax=0.33, color='lightblue', label="Baja")
+    ax.axhspan(0, 1, xmin=0.33, xmax=0.66, color='gold', label="Media")
+    ax.axhspan(0, 1, xmin=0.66, xmax=1, color='salmon', label="Alta")
+
+    # Indicador de riesgo del paciente
+    ax.plot([proba], [0.5], marker='o', color='black', markersize=12)
+
+    ax.set_xlim(0, 1)
+    ax.set_yticks([])
+    ax.set_xticks([0, 0.33, 0.66, 1])
+    ax.set_xticklabels(['0%', '33%', '66%', '100%'])
+    ax.set_title("Nivel de riesgo de ASC")
+    plt.tight_layout()
+
+    st.pyplot(fig)
