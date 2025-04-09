@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import joblib
+import matplotlib.pyplot as plt
 
 # Cargar modelo
 model = joblib.load("modelo_aterosclerosis_XGB.pkl")
